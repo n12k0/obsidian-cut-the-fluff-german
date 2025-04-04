@@ -11,33 +11,25 @@ import { RangeSetBuilder } from '@codemirror/state';
 import { syntaxTree } from '@codemirror/language';
 
 interface CutTheFluffPluginSettings {
-	mySetting: string;
-	xsColor: string,
-	smColor: string;
-	mdColor: string,
-	lgColor: string,
-	xlColor: string,
-	enabled: boolean,
-	showInRibbon: boolean,
-	xsThreshold: number,
-	smThreshold: number,
-	mdThreshold: number,
-	lgThreshold: number,
+	wordlist: string,
+	enabled: boolean
 }
 
 const DEFAULT_SETTINGS: CutTheFluffPluginSettings = {
-	mySetting: 'default',
-	xsColor: '#fff2c8',
-	smColor: '#eadbf6',
-	mdColor: '#c5f2cd',
-	lgColor: '#f9caca',
-	xlColor: '#d1f6f4',
-	enabled: false,
-	showInRibbon: false,
-	xsThreshold: 2,
-	smThreshold: 5,
-	mdThreshold: 10,
-	lgThreshold: 20,
+	enabled: true,
+	wordlist: `basically
+just
+basically
+actually
+actual
+literally
+really
+very
+quite
+honestly
+simply
+like
+combine together`
 }
 
 export default class CutTheFluffPlugin extends Plugin {
@@ -76,7 +68,7 @@ export default class CutTheFluffPlugin extends Plugin {
 	}
 
 	buildRegex() {
-		const words = [
+		/*const words = [
 			'basically',
 			'just',
 			'basically',
@@ -90,7 +82,9 @@ export default class CutTheFluffPlugin extends Plugin {
 			'simply',
 			'like',
 			'combine together'
-		];
+		];*/
+
+		const words = this.settings.wordlist.trim().split(/\r?\n/).map(line => line.trim());
 		
 		const pattern = `\\b(?:${ words.join("|") })\\b`
 		this.regex = new RegExp(pattern, 'gi');
@@ -102,6 +96,7 @@ export default class CutTheFluffPlugin extends Plugin {
 
 	async saveSettings() {
 		await this.saveData(this.settings);
+		this.buildRegex();
 		this.forceViewUpdate = true;
 		document.body.classList.toggle('sentence-length-highlighting-active', this.settings.enabled);
 		this.app.workspace.updateOptions();
@@ -239,6 +234,10 @@ class CutTheFluggSettingsTab extends PluginSettingTab {
 		this.plugin = plugin;
 	}
 
+	async hide(): void {
+		await this.plugin.saveSettings();
+	}
+
 	display(): void {
 		const { containerEl } = this;
 
@@ -256,7 +255,22 @@ class CutTheFluggSettingsTab extends PluginSettingTab {
 
 
 
-		
+		new Setting(containerEl)
+			.setName('Word list')
+			.setDesc('')
+			.addTextArea((text) =>
+				text
+				.setValue(this.plugin.settings.wordlist)
+				.onChange(async (value) => {
+					this.plugin.settings.wordlist = value;
+					// Don't want to build the regex here because of partial edits
+				})
+				.then(textArea => {
+					textArea.inputEl.style.width = "100%";
+					textArea.inputEl.rows = 10;
+				})
+				
+			);
 
 
 
