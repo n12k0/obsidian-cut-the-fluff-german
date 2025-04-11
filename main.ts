@@ -307,7 +307,7 @@ class CutTheFluggSettingsTab extends PluginSettingTab {
 		this.plugin = plugin;
 	}
 
-	async hide(): void {
+	async hide(): Promise<void> {
 		await this.plugin.saveSettings();
 	}
 
