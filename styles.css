@@ -1,6 +1,17 @@
 .fluff {
-    color: var(--text-faint);
+    
     /*text-decoration: line-through;
     text-decoration-color: var(--text-muted);*/
     /* --text-muted */
+}
+
+.fluff-dim {
+    color: var(--text-faint);
+}
+
+.fluff-wavy-underline {
+    text-decoration-line: underline;
+    text-decoration-style: wavy;
+    text-decoration-color: var(--color-blue);
+    text-decoration-skip-ink: none;
 }
