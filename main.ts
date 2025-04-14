@@ -149,6 +149,9 @@ export default class CutTheFluffPlugin extends Plugin {
 					case 'wavy-underline':
 						formattingClass = ' fluff-wavy-underline';
 						break;
+					case 'strikethrough':
+						formattingClass = ' fluff-strikethrough';
+						break;
 					default:
 						formattingClass = '';
 				}
@@ -279,6 +282,7 @@ class CutTheFluggSettingsTab extends PluginSettingTab {
 			.addDropdown(dropdown => {
 				dropdown.addOption('dim', 'Dim');
 				dropdown.addOption('wavy-underline', 'Wavy underline');
+				dropdown.addOption('strikethrough', 'Strikethrough');
 				dropdown.addOption('none', 'None');
 
 				dropdown.setValue(this.plugin.settings.highlightStyle);
