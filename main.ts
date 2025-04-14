@@ -10,7 +10,7 @@ import {
 import { RangeSetBuilder } from '@codemirror/state';
 import { syntaxTree } from '@codemirror/language';
 
-import { Rulesets, RULESETS } from './rulesets';
+import { Rules, Rule, RuleType } from './rulesets';
 
 
 interface CutTheFluffPluginSettings {
@@ -41,11 +41,16 @@ const DEFAULT_SETTINGS: CutTheFluffPluginSettings = {
 export default class CutTheFluffPlugin extends Plugin {
 	settings: CutTheFluffPluginSettings;
 	forceViewUpdate: boolean;
-	regex: RegExp;
+	regex: RegExp | null;
+	rules: Rules;
 
 	async onload() {
+
+		this.rules = new Rules();
+
 		await this.loadSettings();
 		this.buildRegex();
+
 
 		this.addCommand({
 			id: 'toggle',
@@ -66,78 +71,38 @@ export default class CutTheFluffPlugin extends Plugin {
 	}
 
 	buildRegex() {
-		/*const words = [
-			'basically',
-			'just',
-			'basically',
-			'actually',
-			'actual',
-			'literally',
-			'really',
-			'very',
-			'quite',
-			'honestly',
-			'simply',
-			'like',
-			'combine together'
-		];*/
 
-		const customRules: string[] = [];
+
+		const enabledRuleTypes: RuleType[] = [
+			...(this.settings.enableRulesetWeakQualifiers ? [RuleType.WeakQualifier] : []),
+			...(this.settings.enableRulesetJargon ? [RuleType.Jargon] : []),
+			...(this.settings.enableRulesetComplexity ? [RuleType.Complexity] : []),
+			...(this.settings.enableRulesetRedudancies ? [RuleType.Redundancy] : []),
+		];
+
+		this.rules.resetCustomRules();
 		const customExceptions: string[] = [];
 
-
-
-		this.settings.customWordList.trim().split(/\r?\n/).forEach(str => {
-			if (str.startsWith('-')) {
-				customExceptions.push(str.substring(1));
-			} else {
-				customRules.push(str);
-			}
-		  });
-
-
-		//const filteredArray = stringArray.filter(str => str.startsWith('-'));
-
-		let words: string[] = [];
-
-		const rulesetSettingMap: Record<string, string> = {
-			"enableRulesetWeakQualifiers": 'weakQualifiers',
-			"enableRulesetJargon": 'jargon',
-			"enableRulesetComplexity": 'complexity',
-			"enableRulesetRedudancies": 'redundancies'
-		}
-
-
-		
-
-
-		for (let key in rulesetSettingMap) {
-			let rulesetToggleSettingKey = key as keyof CutTheFluffPluginSettings;
-			if (typeof this.settings[rulesetToggleSettingKey] === 'boolean') {
-				if (this.settings[rulesetToggleSettingKey]) {
-					let typedKey = rulesetSettingMap[key] as keyof Rulesets;
-
-					words = words.concat(Object.keys(RULESETS[typedKey]).filter(value => {
-						return !customExceptions.includes(value);
-					}));
+		if(this.settings.customWordList.trim().length > 0) {
+			this.settings.customWordList.trim().split(/\r?\n/).forEach(str => {
+				if (str.startsWith('-')) {
+					customExceptions.push(str.substring(1));
+				} else {
+					this.rules.addCustomRule(str);
 				}
-			}
+			});
 		}
 
-		
 
-		if(this.settings.customWordList.length > 0) {
-			words = words.concat(customRules.map(
-				line => line.trim().replace(/[.*+?^${}()|[\]\\]/g, '\\$&')
-			));
+		let words: string[] = this.rules.getMatchStrings(enabledRuleTypes, customExceptions);
+
+		if(words.length > 0) {
+			const pattern = `\\b(?:${words.join("|")})\\b`
+			this.regex = new RegExp(pattern, 'gi');
+		} else {
+			this.regex = null;
 		}
 
-	
-
-		//const words = this.settings.wordlist.trim().split(/\r?\n/).map(line => line.trim());
-
-		const pattern = `\\b(?:${words.join("|")})\\b`
-		this.regex = new RegExp(pattern, 'gi');
 	}
 
 	async loadSettings() {
@@ -148,7 +113,7 @@ export default class CutTheFluffPlugin extends Plugin {
 		await this.saveData(this.settings);
 		this.buildRegex();
 		this.forceViewUpdate = true;
-		document.body.classList.toggle('sentence-length-highlighting-active', this.settings.enabled);
+		document.body.classList.toggle('cut-the-fluff-active', this.settings.enabled);
 		this.app.workspace.updateOptions();
 	}
 
@@ -165,12 +130,13 @@ export default class CutTheFluffPlugin extends Plugin {
 			update(update: ViewUpdate) {
 				if (update.docChanged || update.viewportChanged || plugin.forceViewUpdate) {
 					this.decorations = this.buildDecorations(update.view);
+					plugin.forceViewUpdate = false;
 				}
 			}
 
 			buildDecorations(view: EditorView): DecorationSet {
 
-				if (!plugin.settings.enabled) {
+				if (!plugin.settings.enabled || plugin.regex == null) {
 					return Decoration.none;
 				}
 
@@ -210,17 +176,15 @@ export default class CutTheFluffPlugin extends Plugin {
 					});
 				}
 
-				//const words = ["just", "sample", "is"];
-
-				//const sentenceRegex = /\bbasically\b|\btext\b/gi
+				
 
 				let match;
 
 				for (const { from, to } of view.visibleRanges) {
 
 
-					// IMPORTANT: Reset lastIndex for global regexes when searching new strings/slices
-					plugin.regex.lastIndex = 0;
+					
+					plugin.regex.lastIndex = 0; // Important
 
 					const doc = view.state.doc
 
@@ -228,13 +192,17 @@ export default class CutTheFluffPlugin extends Plugin {
 
 					while ((match = plugin.regex.exec(visibleText)) !== null) {
 
-						//console.log(text.length);
+						const matchingRule: Rule = plugin.rules.getRuleByMatchString(match[0]);
 
 						let start: number;
+						start = match.index + from + matchingRule.highlightOffset;
 
-						start = match.index + from;
-
-						const end = start + match[0].length;
+						let end: number;
+						if (matchingRule.highlightLength != null) {
+							end = start + matchingRule.highlightLength - matchingRule.highlightOffset
+						} else {
+							end = start + match[0].length - matchingRule.highlightOffset;
+						}
 
 						if (skipRanges.some(range => start >= range.min && start <= range.max)) {
 							continue;
@@ -243,11 +211,11 @@ export default class CutTheFluffPlugin extends Plugin {
 
 
 
-						if(plugin.settings.enableTooltips) {
+						if (plugin.settings.enableTooltips) {
 							builder.add(start, end, Decoration.mark({
 								class: `fluff${formattingClass}`,
 								attributes: {
-									'aria-label': "Much longer \nworld",
+									'aria-label': matchingRule.match,
 									'data-tooltip-position': "bottom"
 								}
 							}));
@@ -258,36 +226,13 @@ export default class CutTheFluffPlugin extends Plugin {
 						}
 
 
-						
+
 					}
 
 
 				}
 
-				/*
-				while ((match = sentenceRegex.exec(text)) !== null) {
-
-					let start: number;
-					
-						start = match.index;
-					
-					const end = start + match[0].length;
-
-					if (skipRanges.some(range => start >= range.min && start <= range.max)) {
-						continue;
-					}
-
-					
-					
-
-					
-
-
-					builder.add(start, end, Decoration.mark({
-						class: 'fluff',
-					}));
-				}
-				*/
+				
 
 				return builder.finish();
 			}
@@ -341,12 +286,11 @@ class CutTheFluggSettingsTab extends PluginSettingTab {
 				dropdown.onChange(async (newValue) => {
 
 					this.plugin.settings.highlightStyle = newValue;
-					// Save the updated settings
 					await this.plugin.saveSettings();
 				});
 			});
-		
-		/*
+
+
 		new Setting(containerEl)
 			.setName('Enable tooltips')
 
@@ -356,7 +300,7 @@ class CutTheFluggSettingsTab extends PluginSettingTab {
 					this.plugin.settings.enableTooltips = value;
 					await this.plugin.saveSettings();
 				}));
-		*/
+
 
 		new Setting(containerEl).setName('Built-in rulesets').setHeading();
 
@@ -391,7 +335,7 @@ class CutTheFluggSettingsTab extends PluginSettingTab {
 				}));
 
 		new Setting(containerEl)
-			.setName('Redudancies')
+			.setName('Redundancies')
 			.setDesc('eg. combine together, basic fundamentals, critically important, final conclusion')
 			.addToggle(toggle => toggle
 				.setValue(this.plugin.settings.enableRulesetRedudancies) // Set the initial state of the toggle from loaded settings
