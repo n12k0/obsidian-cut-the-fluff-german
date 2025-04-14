@@ -294,7 +294,7 @@ class CutTheFluggSettingsTab extends PluginSettingTab {
 				});
 			});
 
-
+		/*
 		new Setting(containerEl)
 			.setName('Enable tooltips')
 
@@ -304,7 +304,7 @@ class CutTheFluggSettingsTab extends PluginSettingTab {
 					this.plugin.settings.enableTooltips = value;
 					await this.plugin.saveSettings();
 				}));
-
+		*/
 
 		new Setting(containerEl).setName('Built-in rulesets').setHeading();
 
