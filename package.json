@@ -1,7 +1,7 @@
 {
 	"name": "cut-the-fluff",
 	"version": "0.1.2",
-	"description": "This is a sample plugin for Obsidian (https://obsidian.md)",
+	"description": "Make your writing clearer by checking for unnecessary complexity and clutter.",
 	"main": "main.js",
 	"scripts": {
 		"dev": "node esbuild.config.mjs",
