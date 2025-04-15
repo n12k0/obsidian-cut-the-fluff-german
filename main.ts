@@ -378,9 +378,7 @@ class CutTheFluggSettingsTab extends PluginSettingTab {
 				// Don't save setting here because of partial edits
 			})
 			.then(textArea => {
-				textArea.inputEl.style.width = "100%";
-				textArea.inputEl.rows = 10;
-				textArea.inputEl.style.resize = "none";
+				textArea.inputEl.addClass("settings-full-width-textarea");
 			});
 
 

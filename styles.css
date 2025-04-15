@@ -13,3 +13,9 @@
     text-decoration-line: line-through;
     color: var(--text-faint);
 }
+
+.settings-full-width-textarea {
+    width: 100%;
+    resize: none;
+    height: 12em;
+}
