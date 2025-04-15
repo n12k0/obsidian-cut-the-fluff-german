@@ -21,7 +21,7 @@ interface CutTheFluffPluginSettings {
 	enableRulesetWeakQualifiers: boolean,
 	enableRulesetJargon: boolean,
 	enableRulesetComplexity: boolean,
-	enableRulesetRedudancies: boolean,
+	enableRulesetRedundancies: boolean,
 
 }
 
@@ -32,7 +32,7 @@ const DEFAULT_SETTINGS: CutTheFluffPluginSettings = {
 	enableRulesetWeakQualifiers: true,
 	enableRulesetJargon: true,
 	enableRulesetComplexity: true,
-	enableRulesetRedudancies: true,
+	enableRulesetRedundancies: true,
 	customWordList: ''
 }
 
@@ -77,7 +77,7 @@ export default class CutTheFluffPlugin extends Plugin {
 			...(this.settings.enableRulesetWeakQualifiers ? [RuleType.WeakQualifier] : []),
 			...(this.settings.enableRulesetJargon ? [RuleType.Jargon] : []),
 			...(this.settings.enableRulesetComplexity ? [RuleType.Complexity] : []),
-			...(this.settings.enableRulesetRedudancies ? [RuleType.Redundancy] : []),
+			...(this.settings.enableRulesetRedundancies ? [RuleType.Redundancy] : []),
 		];
 
 		this.rules.resetCustomRules();
@@ -342,9 +342,9 @@ class CutTheFluggSettingsTab extends PluginSettingTab {
 			.setName('Redundancies')
 			.setDesc('eg. combine together, basic fundamentals, critically important, final conclusion')
 			.addToggle(toggle => toggle
-				.setValue(this.plugin.settings.enableRulesetRedudancies) // Set the initial state of the toggle from loaded settings
+				.setValue(this.plugin.settings.enableRulesetRedundancies) // Set the initial state of the toggle from loaded settings
 				.onChange(async (value) => { // This function runs whenever the toggle is changed
-					this.plugin.settings.enableRulesetRedudancies = value;
+					this.plugin.settings.enableRulesetRedundancies = value;
 					await this.plugin.saveSettings();
 				}));
 
