@@ -15,7 +15,6 @@ import { Rules, Rule, RuleType } from './rulesets';
 
 interface CutTheFluffPluginSettings {
 	enabled: boolean,
-	enableTooltips: boolean,
 	highlightStyle: string,
 	customWordList: string,
 	enableRulesetWeakQualifiers: boolean,
@@ -27,7 +26,6 @@ interface CutTheFluffPluginSettings {
 
 const DEFAULT_SETTINGS: CutTheFluffPluginSettings = {
 	enabled: true,
-	enableTooltips: false,
 	highlightStyle: 'dim',
 	enableRulesetWeakQualifiers: true,
 	enableRulesetJargon: true,
@@ -211,24 +209,9 @@ export default class CutTheFluffPlugin extends Plugin {
 							continue;
 						}
 
-
-
-
-						if (plugin.settings.enableTooltips) {
-							builder.add(start, end, Decoration.mark({
-								class: `fluff${formattingClass}`,
-								attributes: {
-									'aria-label': matchingRule.match,
-									'data-tooltip-position': "bottom"
-								}
-							}));
-						} else {
-							builder.add(start, end, Decoration.mark({
-								class: `fluff${formattingClass}`,
-							}));
-						}
-
-
+						builder.add(start, end, Decoration.mark({
+							class: `fluff${formattingClass}`,
+						}));
 
 					}
 
