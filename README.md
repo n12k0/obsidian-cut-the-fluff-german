@@ -11,17 +11,17 @@ Examples:
 * **Unnecessary complexity or clutter** (eg. ~~utilise~~ -> use, ~~in regard to~~ -> about, ~~it is interesting to note~~)
 * **Redundancies** (~~each and~~ every, ~~one and~~ the same, ~~final~~ conclusion, combine ~~together~~)
 
-# Privacy
+## Privacy
 
 All processing happens locally on your device. Your text or any other data is never sent to a remote server by this plugin. 
 
-# Customization
+## Customization
 
-## Rules
+### Rules
 
 There are 4 built-in rulesets matching the categories from the examples above which can each be enabled and disabled. You can add custom words and phrases, or add an exception for any of the built-in matches. 
 
-## Display
+### Display
 
 * Dim
 * Strikethrough
