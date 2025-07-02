@@ -7,7 +7,7 @@ Gute Texte sind klar und präzise. Cut the Fluff German hilft dir, deinen Stil z
 Beispiele:
 
 * **Füllwörter & Abschwächungen** (z.B. ~~eigentlich~~, ~~halt~~, ~~wirklich~~, ~~ziemlich~~)
-* **Redundanzen** (z.B. ~~tatsächliche~~ Tatsachen, ~~am besten~~ jemals, ~~vollständig~~ vernichten)
+* **Redundanzen** (z.B. ~~tatsächliche~~ Tatsachen, ~~vollständig~~ vernichten, ~~endgültiges~~ Ende)
 * **Unnötige Komplexität** (z.B. ~~aufgrund der Tatsache, dass~~ → weil)
 
 ## Datenschutz
