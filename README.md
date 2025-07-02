@@ -28,3 +28,4 @@ Es gibt eingebaute Regeln für Füllwörter, Redundanzen und Komplexität. Du ka
 * Keine (nur CSS-Klasse für eigene Formatierung)
 
 Thanks to [Adam Fletcher](https://github.com/adamfletcher/obsidian-cut-the-fluff) for the inspiration and the code. This is simply a fork of the original plugin adapted for German.
+Thanks to [TimKam](https://github.com/TimKam) for the word lists.
