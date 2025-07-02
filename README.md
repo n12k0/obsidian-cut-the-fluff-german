@@ -31,7 +31,7 @@ Alle Verarbeitung erfolgt lokal auf deinem Gerät. Deine Texte oder andere Daten
 
 ### Regeln
 
-Es gibt eingebaute Regeln für Füllwörter, Weasel Words, Redundanzen und Komplexität. Du kannst eigene Wörter und Ausnahmen hinzufügen.
+Es gibt eingebaute Regeln für Füllwörter, Weasel Words, Weak Qualifiers, Redundanzen, Jargon und Komplexität. Du kannst eigene Wörter und Ausnahmen hinzufügen.
 
 ### Anzeige
 
