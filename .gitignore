@@ -18,5 +18,9 @@ main.js
 # obsidian
 data.json
 
+# German word lists
+134_Füllwörter.md
+redundanzen.md
+
 # Exclude macOS Finder (System Explorer) View States
 .DS_Store

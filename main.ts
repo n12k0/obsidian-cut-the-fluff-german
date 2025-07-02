@@ -11,6 +11,7 @@ import { RangeSetBuilder } from '@codemirror/state';
 import { syntaxTree } from '@codemirror/language';
 
 import { Rules, Rule, RuleType } from './rulesets';
+import { GermanRules } from './rulesets.de';
 
 
 interface CutTheFluffPluginSettings {
@@ -21,7 +22,7 @@ interface CutTheFluffPluginSettings {
 	enableRulesetJargon: boolean,
 	enableRulesetComplexity: boolean,
 	enableRulesetRedundancies: boolean,
-
+	language?: 'en' | 'de'; // Add language selection
 }
 
 const DEFAULT_SETTINGS: CutTheFluffPluginSettings = {
@@ -31,7 +32,8 @@ const DEFAULT_SETTINGS: CutTheFluffPluginSettings = {
 	enableRulesetJargon: true,
 	enableRulesetComplexity: true,
 	enableRulesetRedundancies: true,
-	customWordList: ''
+	customWordList: '',
+	language: 'en', // Default to English
 }
 
 
@@ -44,9 +46,8 @@ export default class CutTheFluffPlugin extends Plugin {
 
 	async onload() {
 
-		this.rules = new Rules();
-
 		await this.loadSettings();
+		this.setRulesByLanguage();
 		this.buildRegex();
 
 
@@ -63,9 +64,12 @@ export default class CutTheFluffPlugin extends Plugin {
 		this.registerEditorExtension(this.createViewPlugin());
 	}
 
-
-	onunload() {
-
+	setRulesByLanguage() {
+		if (this.settings.language === 'de') {
+			this.rules = new GermanRules();
+		} else {
+			this.rules = new Rules();
+		}
 	}
 
 	buildRegex() {
@@ -109,6 +113,7 @@ export default class CutTheFluffPlugin extends Plugin {
 
 	async saveSettings() {
 		await this.saveData(this.settings);
+		this.setRulesByLanguage();
 		this.buildRegex();
 		this.forceViewUpdate = true;
 		document.body.classList.toggle('cut-the-fluff-active', this.settings.enabled);
@@ -362,6 +367,20 @@ class CutTheFluggSettingsTab extends PluginSettingTab {
 			})
 			.then(textArea => {
 				textArea.inputEl.addClass("settings-full-width-textarea");
+			});
+
+
+		new Setting(containerEl)
+			.setName('Language')
+			.setDesc('Select the language for linting rules')
+			.addDropdown(dropdown => {
+				dropdown.addOption('en', 'English');
+				dropdown.addOption('de', 'German');
+				dropdown.setValue(this.plugin.settings.language || 'en');
+				dropdown.onChange(async (value) => {
+					this.plugin.settings.language = value as 'en' | 'de';
+					await this.plugin.saveSettings();
+				});
 			});
 
 

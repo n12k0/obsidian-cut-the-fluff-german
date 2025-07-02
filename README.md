@@ -1,31 +1,30 @@
-# Cut The Fluff (for Obsidian)
+# Cut the Fluff German (for Obsidian)
 
 ![Screenshot](assets/screenshot.png)
 
-Great writing is clear and concise. Cut the Fluff helps you edit by pointing out potentially unnecessary words or complexity. 
+Gute Texte sind klar und präzise. Cut the Fluff German hilft dir, deinen Stil zu verbessern, indem es unnötige Füllwörter, Redundanzen und Komplexität erkennt.
 
-Examples:
+Beispiele:
 
-* **Weak Qualifiers & Hedges** (eg. ~~quite~~, ~~basically~~, ~~very~~, ~~really~~)
-* **Clichés, jargon and metaphors** (eg. ~~move the needle~~, ~~double-edged sword~~, ~~at the end of the day~~)
-* **Unnecessary complexity or clutter** (eg. ~~utilise~~ -> use, ~~in regard to~~ -> about, ~~it is interesting to note~~)
-* **Redundancies** (~~each and~~ every, ~~one and~~ the same, ~~final~~ conclusion, combine ~~together~~)
+* **Füllwörter & Abschwächungen** (z.B. ~~eigentlich~~, ~~halt~~, ~~wirklich~~, ~~ziemlich~~)
+* **Redundanzen** (z.B. ~~tatsächliche~~ Tatsachen, ~~am besten~~ jemals, ~~vollständig~~ vernichten)
+* **Unnötige Komplexität** (z.B. ~~aufgrund der Tatsache, dass~~ → weil)
 
-## Privacy
+## Datenschutz
 
-All processing happens locally on your device. Your text or any other data is never sent to a remote server by this plugin. 
+Alle Verarbeitung erfolgt lokal auf deinem Gerät. Deine Texte oder andere Daten werden niemals an einen Server gesendet.
 
-## Customization
+## Anpassung
 
-### Rules
+### Regeln
 
-There are 4 built-in rulesets matching the categories from the examples above which can each be enabled and disabled. You can add custom words and phrases, or add an exception for any of the built-in matches. 
+Es gibt eingebaute Regeln für Füllwörter, Redundanzen und Komplexität. Du kannst eigene Wörter und Ausnahmen hinzufügen.
 
-### Display
+### Anzeige
 
-* Dim
-* Strikethrough
-* Underline
-* None
+* Abblenden
+* Durchstreichen
+* Unterstreichen
+* Keine (nur CSS-Klasse für eigene Formatierung)
 
-If you select 'None' the plugin will apply a `fluff` class to any matches allowing you to apply custom formatting in your user stylesheet. 
+Thanks to [Adam Fletcher](https://github.com/adamfletcher/obsidian-cut-the-fluff) for the inspiration and the code. This is simply a fork of the original plugin adapted for German.

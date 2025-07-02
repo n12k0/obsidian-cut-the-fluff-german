@@ -120,7 +120,7 @@ export class Rules {
 
     }
 
-    private addRule(rule: Rule) : void {
+    protected addRule(rule: Rule) : void {
         this.rules[rule.match] = rule;
     }
 
