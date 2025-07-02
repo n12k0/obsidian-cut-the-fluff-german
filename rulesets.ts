@@ -1,5 +1,7 @@
 export interface Rulesets {
     weakQualifiers: Record<string, string>;
+    fillerWords: Record<string, string>;
+    weaselWords: Record<string, string>;  // New category for weasel words
     jargon: Record<string, string>;
     complexity: Record<string, string>;
     redundancies: Record<string, string>;
@@ -7,6 +9,8 @@ export interface Rulesets {
 
 export const enum RuleType {
     WeakQualifier = "WeakQualifier",
+    FillerWord = "FillerWord",
+    WeaselWord = "WeaselWord",  // New weasel word type
     Jargon = "Jaron",
     Complexity = "Complexity",
     Redundancy = "Redudancy",

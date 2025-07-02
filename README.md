@@ -2,13 +2,14 @@
 
 ![Screenshot](assets/screenshot.png)
 
-Gute Texte sind klar und präzise. Cut the Fluff German hilft dir, deinen Stil zu verbessern, indem es unnötige Füllwörter, Redundanzen und Komplexität erkennt.
+Gute Texte sind klar und präzise. Cut the Fluff German hilft dir, deinen Stil zu verbessern, indem es unnötige Füllwörter, Weasel Words, Redundanzen und Komplexität erkennt.
 
 Beispiele:
 
-* **Füllwörter & Abschwächungen** (z.B. ~~eigentlich~~, ~~halt~~, ~~wirklich~~, ~~ziemlich~~)
-* **Redundanzen** (z.B. ~~tatsächliche~~ Tatsachen, ~~vollständig~~ vernichten, ~~endgültiges~~ Ende)
-* **Unnötige Komplexität** (z.B. ~~aufgrund der Tatsache, dass~~ → weil)
+* **Füllwörter** (z.B. ~~aber~~, ~~eigentlich~~, ~~halt~~, ~~ziemlich~~, ~~vielleicht~~)
+* **Weasel Words** (z.B. ~~äußerst~~, ~~diverse~~, ~~enorm~~, ~~signifikant~~, ~~überraschend~~)
+* **Redundanzen** (z.B. ~~tatsächliche~~ Tatsachen, ~~vollständig~~ vernichten, ~~endgültiges~~ Ende, ~~absolut~~ notwendig)
+* **Unnötige Komplexität** (z.B. ~~aufgrund der Tatsache~~, ~~meiner Meinung nach~~, ~~in Anbetracht der Tatsache~~)
 
 ## Datenschutz
 
@@ -18,7 +19,7 @@ Alle Verarbeitung erfolgt lokal auf deinem Gerät. Deine Texte oder andere Daten
 
 ### Regeln
 
-Es gibt eingebaute Regeln für Füllwörter, Redundanzen und Komplexität. Du kannst eigene Wörter und Ausnahmen hinzufügen.
+Es gibt eingebaute Regeln für Füllwörter, Weasel Words, Redundanzen und Komplexität. Du kannst eigene Wörter und Ausnahmen hinzufügen.
 
 ### Anzeige
 

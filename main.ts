@@ -22,6 +22,8 @@ interface CutTheFluffPluginSettings {
 	enableRulesetJargon: boolean,
 	enableRulesetComplexity: boolean,
 	enableRulesetRedundancies: boolean,
+	enableRulesetFillerWords: boolean; // New setting
+	enableRulesetWeaselWords: boolean; // New setting for weasel words
 	language?: 'en' | 'de'; // Add language selection
 }
 
@@ -32,8 +34,10 @@ const DEFAULT_SETTINGS: CutTheFluffPluginSettings = {
 	enableRulesetJargon: true,
 	enableRulesetComplexity: true,
 	enableRulesetRedundancies: true,
+	enableRulesetFillerWords: true, // Default enable filler words
+	enableRulesetWeaselWords: true, // Default enable weasel words
 	customWordList: '',
-	language: 'en', // Default to English
+	language: 'de', // Default to German
 }
 
 
@@ -77,6 +81,8 @@ export default class CutTheFluffPlugin extends Plugin {
 
 		const enabledRuleTypes: RuleType[] = [
 			...(this.settings.enableRulesetWeakQualifiers ? [RuleType.WeakQualifier] : []),
+			...(this.settings.enableRulesetFillerWords ? [RuleType.FillerWord] : []),
+			...(this.settings.enableRulesetWeaselWords ? [RuleType.WeaselWord] : []), // Include weasel words
 			...(this.settings.enableRulesetJargon ? [RuleType.Jargon] : []),
 			...(this.settings.enableRulesetComplexity ? [RuleType.Complexity] : []),
 			...(this.settings.enableRulesetRedundancies ? [RuleType.Redundancy] : []),
@@ -336,6 +342,27 @@ class CutTheFluggSettingsTab extends PluginSettingTab {
 					await this.plugin.saveSettings();
 				}));
 
+		new Setting(containerEl)
+			.setName('Füllwörter')
+			.setDesc('Erkennt häufige Füllwörter in deutschen Texten')
+			.addToggle(toggle => toggle
+				.setValue(this.plugin.settings.enableRulesetFillerWords)
+				.onChange(async (value) => {
+					this.plugin.settings.enableRulesetFillerWords = value;
+					await this.plugin.saveSettings();
+				})
+			);
+
+		new Setting(containerEl)
+			.setName('Weasel Words')
+			.setDesc('Erkennt inhaltslose Buzzwords und Phrasen (Weasel Words)')
+			.addToggle(toggle => toggle
+				.setValue(this.plugin.settings.enableRulesetWeaselWords)
+				.onChange(async (value) => {
+					this.plugin.settings.enableRulesetWeaselWords = value;
+					await this.plugin.saveSettings();
+				})
+			);
 
 		/*
 		new Setting(containerEl)
