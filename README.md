@@ -23,7 +23,7 @@ Die erzeugte Datei `main.js` findest du im Plugin-Ordner. Ersetze damit die `mai
 **English:**  
 To add your own words or remove existing ones, clone this repository and edit the `rulesets.de.ts` file as you like.  
 Then run `npm install` and `npm run build`.  
-The generated `main.js` file will be in the plugin folder. Replace the `main.js` file in your Obsidian plugin folder with this new one.
+Replace the `main.js` file in your Obsidian plugin folder with this new one.
 
 ## Installation
 
