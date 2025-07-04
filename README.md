@@ -1,6 +1,6 @@
 # Cut the Fluff German (for Obsidian)
 
-![Screenshot](assets/img1.png)
+![Screenshot](assets/img.png)
 
 Gute Texte sind klar und präzise. Cut the Fluff German hilft dir, deinen Stil zu verbessern, indem es unnötige Füllwörter, Weasel Words, Redundanzen und Komplexität erkennt.
 
