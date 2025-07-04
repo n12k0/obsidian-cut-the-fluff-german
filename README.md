@@ -16,7 +16,7 @@ Beispiele:
 ## Hinweis für Entwickler / Developer Notice
 
 **Deutsch:**  
-Dieses Plugin ist an meinen eigenen Schreibstil und meine Präferenzen angepasst. Die Wortlisten wurden aus verschiedenen Quellen zusammengestellt, stammen aber hauptsächlich aus Duden-Verlag-Büchern.  
+Dieses Plugin ist an meinen Schreibstil angepasst. Die Wortlisten wurden aus verschiedenen Quellen zusammengestellt, stammen aber hauptsächlich aus Duden-Verlag-Büchern.  
 Wenn du eigene Wörter hinzufügen oder bestehende entfernen möchtest, gehe wie folgt vor:
 1. Klone dieses Repository.
 2. Passe die Datei `rulesets.de.ts` nach deinen Wünschen an.
