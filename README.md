@@ -16,14 +16,21 @@ Beispiele:
 ## Hinweis für Entwickler / Developer Notice
 
 **Deutsch:**  
-Um eigene Wörter hinzuzufügen oder bestehende zu entfernen, klone dieses Repository und passe die Datei `rulesets.de.ts` nach deinen Wünschen an.  
-Führe anschließend `npm install` und dann `npm run build` aus.  
-Die erzeugte Datei `main.js` findest du im Plugin-Ordner. Ersetze damit die `main.js`-Datei im Plugin-Ordner deiner Obsidian-Installation.
+Dieses Plugin ist an meinen eigenen Schreibstil und meine Präferenzen angepasst. Die Wortlisten wurden aus verschiedenen Quellen zusammengestellt, stammen aber hauptsächlich aus Duden-Verlag-Büchern.  
+Wenn du eigene Wörter hinzufügen oder bestehende entfernen möchtest, gehe wie folgt vor:
+1. Klone dieses Repository.
+2. Passe die Datei `rulesets.de.ts` nach deinen Wünschen an.
+3. Führe anschließend `npm install` und dann `npm run build` aus.
+4. Die erzeugte Datei `main.js` findest du im Plugin-Ordner. Ersetze damit die `main.js`-Datei im Plugin-Ordner deiner Obsidian-Installation.
 
 **English:**  
-To add your own words or remove existing ones, clone this repository and edit the `rulesets.de.ts` file as you like.  
-Then run `npm install` and `npm run build`.  
-The generated `main.js` file will be in the plugin folder. Replace the `main.js` file in your Obsidian plugin folder with this new one.
+This is a highly opinionated plugin. The word lists were compiled from diverse sources, but primarily from Duden books on how to write better German.  
+If you want to add or remove words, do the following:
+1. Clone this repository.
+2. Edit the `rulesets.de.ts` file as you like.
+3. Then run `npm install` and `npm run build`.
+4. The generated `main.js` file will be in the plugin folder. Replace the `main.js` file in your Obsidian plugin folder with this new one.
+
 
 ## Datenschutz
 
