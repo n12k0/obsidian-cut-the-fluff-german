@@ -77,12 +77,14 @@ export default class CutTheFluffPlugin extends Plugin {
 	}
 
 	buildRegex() {
-
+		function escapeRegex(str: string): string {
+			return str.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+		}
 
 		const enabledRuleTypes: RuleType[] = [
 			...(this.settings.enableRulesetWeakQualifiers ? [RuleType.WeakQualifier] : []),
 			...(this.settings.enableRulesetFillerWords ? [RuleType.FillerWord] : []),
-			...(this.settings.enableRulesetWeaselWords ? [RuleType.WeaselWord] : []), // Include weasel words
+			...(this.settings.enableRulesetWeaselWords ? [RuleType.WeaselWord] : []),
 			...(this.settings.enableRulesetJargon ? [RuleType.Jargon] : []),
 			...(this.settings.enableRulesetComplexity ? [RuleType.Complexity] : []),
 			...(this.settings.enableRulesetRedundancies ? [RuleType.Redundancy] : []),
@@ -93,20 +95,29 @@ export default class CutTheFluffPlugin extends Plugin {
 
 		if(this.settings.customWordList.trim().length > 0) {
 			this.settings.customWordList.trim().split(/\r?\n/).forEach(str => {
-				if (str.startsWith('-')) {
-					customExceptions.push(str.substring(1));
+				const s = str.trim();
+				if (!s) return; // skip empty
+				if (s.startsWith('-')) {
+					customExceptions.push(s.substring(1));
 				} else {
-					this.rules.addCustomRule(str);
+					this.rules.addCustomRule(s);
 				}
 			});
 		}
 
-
-		let words: string[] = this.rules.getMatchStrings(enabledRuleTypes, customExceptions);
+		let words: string[] = this.rules.getMatchStrings(enabledRuleTypes, customExceptions)
+			.map(w => w.trim())
+			.filter(Boolean)
+			.map(escapeRegex);
 
 		if(words.length > 0) {
-			const pattern = `\\b(?:${words.join("|")})\\b`
-			this.regex = new RegExp(pattern, 'gi');
+			const pattern = `\\b(?:${words.join("|")})\\b`;
+			try {
+				this.regex = new RegExp(pattern, 'gi');
+			} catch (e) {
+				console.error('Invalid regex pattern for Cut the Fluff plugin:', pattern, e);
+				this.regex = null;
+			}
 		} else {
 			this.regex = null;
 		}
@@ -204,7 +215,11 @@ export default class CutTheFluffPlugin extends Plugin {
 
 					while ((match = plugin.regex.exec(visibleText)) !== null) {
 
-						const matchingRule: Rule = plugin.rules.getRuleByMatchString(match[0]);
+						const matchingRule: Rule | undefined = plugin.rules.getRuleByMatchString(match[0]);
+						if (!matchingRule) {
+							console.warn('No matching rule found for:', match[0]);
+							continue;
+						}
 
 						let start: number;
 						start = match.index + from + matchingRule.highlightOffset;
@@ -388,9 +403,9 @@ class CutTheFluggSettingsTab extends PluginSettingTab {
 		new TextAreaComponent(containerEl)
 			.setValue(this.plugin.settings.customWordList)
 			.setPlaceholder("one rule\nper line\n-exception")
-			.onChange(value => {
+			.onChange(async (value) => {
 				this.plugin.settings.customWordList = value;
-				// Don't save setting here because of partial edits
+				await this.plugin.saveSettings();
 			})
 			.then(textArea => {
 				textArea.inputEl.addClass("settings-full-width-textarea");

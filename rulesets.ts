@@ -133,7 +133,8 @@ export class Rules {
     }
 
     public addCustomRule(match: string) : void {
-        this.customRules[match] = new Rule(RuleType.Custom, match);
+        const rule = new Rule(RuleType.Custom, match);
+        this.customRules[rule.match] = rule; // use lowercase key to match lookup
     }
 
     public getRuleByMatchString(match: string): Rule {
