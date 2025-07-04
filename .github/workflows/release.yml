@@ -24,7 +24,7 @@ jobs:
           npm run build
 
       - name: Zip plugin files
-        run: zip plugin.zip main.js manifest.json styles.css
+        run: zip obsidian-cut-the-fluff-german.zip
 
       - name: Install GitHub CLI
         run: sudo apt-get update && sudo apt-get install -y gh
