@@ -23,6 +23,9 @@ jobs:
           npm install
           npm run build
 
+      - name: Zip plugin files
+        run: zip plugin.zip main.js manifest.json styles.css
+
       - name: Create release
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
@@ -32,4 +35,4 @@ jobs:
           gh release create "$tag" \
             --title="$tag" \
             --draft \
-            main.js manifest.json styles.css
+            main.js manifest.json styles.css plugin.zip
