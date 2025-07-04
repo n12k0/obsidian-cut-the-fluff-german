@@ -2,6 +2,8 @@
 
 ![Screenshot](assets/img.png)
 
+![Screenshot](assets/img2.png)
+
 Gute Texte sind klar und präzise. Cut the Fluff German hilft dir, deinen Stil zu verbessern, indem es unnötige Füllwörter, Weasel Words, Redundanzen und Komplexität erkennt.
 
 Beispiele:

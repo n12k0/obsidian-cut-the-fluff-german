@@ -274,25 +274,23 @@ class CutTheFluggSettingsTab extends PluginSettingTab {
 		containerEl.empty();
 
 		new Setting(containerEl)
-			.setName('Enable highlighting')
-			.setDesc('You can also toggle on and off from the command palette')
+			.setName('Hervorhebung aktivieren')
+			.setDesc('Du kannst das Hervorheben auch über die Befehlspalette ein- und ausschalten')
 			.addToggle(toggle => toggle
-				.setValue(this.plugin.settings.enabled) // Set the initial state of the toggle from loaded settings
-				.onChange(async (value) => { // This function runs whenever the toggle is changed
+				.setValue(this.plugin.settings.enabled)
+				.onChange(async (value) => {
 					this.plugin.settings.enabled = value;
 					await this.plugin.saveSettings();
 				}));
 
-
-
 		new Setting(containerEl)
-			.setName('Highlight style')
-			.setDesc('Selecting none will add CSS classes to matches but no formatting to allow you to format from your user stylesheet')
+			.setName('Hervorhebungsstil')
+			.setDesc('Wenn "Keine" gewählt wird, werden nur CSS-Klassen zu Treffern hinzugefügt, aber keine Formatierung. Du kannst dann selbst im User-Stylesheet formatieren.')
 			.addDropdown(dropdown => {
-				dropdown.addOption('dim', 'Dim');
-				dropdown.addOption('wavy-underline', 'Wavy underline');
-				dropdown.addOption('strikethrough', 'Strikethrough');
-				dropdown.addOption('none', 'None');
+				dropdown.addOption('dim', 'Abgeblendet');
+				dropdown.addOption('wavy-underline', 'Gewellte Unterstreichung');
+				dropdown.addOption('strikethrough', 'Durchgestrichen');
+				dropdown.addOption('none', 'Keine');
 
 				dropdown.setValue(this.plugin.settings.highlightStyle);
 
@@ -305,7 +303,7 @@ class CutTheFluggSettingsTab extends PluginSettingTab {
 
 		/*
 		new Setting(containerEl)
-			.setName('Enable tooltips')
+			.setName('Tooltips aktivieren')
 
 			.addToggle(toggle => toggle
 				.setValue(this.plugin.settings.enableTooltips) // Set the initial state of the toggle from loaded settings
@@ -315,11 +313,11 @@ class CutTheFluggSettingsTab extends PluginSettingTab {
 				}));
 		*/
 
-		new Setting(containerEl).setName('Built-in rulesets').setHeading();
+		new Setting(containerEl).setName('Eingebaute Regelsets').setHeading();
 
 		new Setting(containerEl)
-			.setName('Weak qualifiers')
-			.setDesc('eg. very, quite, really')
+			.setName('Schwache Qualifizierer')
+			.setDesc('z.B. sehr, ziemlich, wirklich')
 			.addToggle(toggle => toggle
 				.setValue(this.plugin.settings.enableRulesetWeakQualifiers) // Set the initial state of the toggle from loaded settings
 				.onChange(async (value) => { // This function runs whenever the toggle is changed
@@ -328,8 +326,8 @@ class CutTheFluggSettingsTab extends PluginSettingTab {
 				}));
 
 		new Setting(containerEl)
-			.setName('Clichés, jargon and metaphors')
-			.setDesc('eg. move the needle, double-edged sword, paradigm shift')
+			.setName('Klischees, Jargon und Metaphern')
+			.setDesc('z.B. das Rad neu erfinden, doppelte Buchführung, Paradigmenwechsel')
 			.addToggle(toggle => toggle
 				.setValue(this.plugin.settings.enableRulesetJargon) // Set the initial state of the toggle from loaded settings
 				.onChange(async (value) => { // This function runs whenever the toggle is changed
@@ -338,8 +336,8 @@ class CutTheFluggSettingsTab extends PluginSettingTab {
 				}));
 
 		new Setting(containerEl)
-			.setName('Unnecessary complexity or clutter')
-			.setDesc('eg. erroneous (wrong), pertaining to (about), utalize (use), due to the fact that (due to)')
+			.setName('Unnötige Komplexität oder Überfrachtung')
+			.setDesc('z.B. irrtümlich (falsch), bezüglich (über), nutzen (verwenden), aufgrund der Tatsache, dass (weil)')
 			.addToggle(toggle => toggle
 				.setValue(this.plugin.settings.enableRulesetComplexity) // Set the initial state of the toggle from loaded settings
 				.onChange(async (value) => { // This function runs whenever the toggle is changed
@@ -348,8 +346,8 @@ class CutTheFluggSettingsTab extends PluginSettingTab {
 				}));
 
 		new Setting(containerEl)
-			.setName('Redundancies')
-			.setDesc('eg. combine together, basic fundamentals, critically important, final conclusion')
+			.setName('Redundanzen')
+			.setDesc('z.B. gemeinsam zusammen, grundlegende Grundlagen, äußerst wichtig, endgültiges Fazit')
 			.addToggle(toggle => toggle
 				.setValue(this.plugin.settings.enableRulesetRedundancies) // Set the initial state of the toggle from loaded settings
 				.onChange(async (value) => { // This function runs whenever the toggle is changed
@@ -381,8 +379,8 @@ class CutTheFluggSettingsTab extends PluginSettingTab {
 
 		/*
 		new Setting(containerEl)
-			.setName('Custom')
-			.setDesc('Seperate each item with a line break. Prefix an item with a dash to add an exception for a built-in rule')
+			.setName('Benutzerdefiniert')
+			.setDesc('Trenne jeden Eintrag mit einem Zeilenumbruch. Ein Eintrag mit einem Bindestrich am Anfang fügt eine Ausnahme für eine eingebaute Regel hinzu.')
 			.addTextArea((text) =>
 				text
 				.setValue(this.plugin.settings.wordlist)
@@ -398,11 +396,11 @@ class CutTheFluggSettingsTab extends PluginSettingTab {
 			);
 			*/
 
-		new Setting(containerEl).setName('Custom rules').setDesc('Seperate each item with a line break. Prefix an item with a dash to add an exception for a built-in rule').setHeading();
+		new Setting(containerEl).setName('Eigene Regeln').setDesc('Trenne jeden Eintrag mit einem Zeilenumbruch. Ein Eintrag mit einem Bindestrich am Anfang fügt eine Ausnahme für eine eingebaute Regel hinzu.').setHeading();
 
 		new TextAreaComponent(containerEl)
 			.setValue(this.plugin.settings.customWordList)
-			.setPlaceholder("one rule\nper line\n-exception")
+			.setPlaceholder("eine Regel\nje Zeile\n-Ausnahme")
 			.onChange(async (value) => {
 				this.plugin.settings.customWordList = value;
 				await this.plugin.saveSettings();
@@ -411,13 +409,12 @@ class CutTheFluggSettingsTab extends PluginSettingTab {
 				textArea.inputEl.addClass("settings-full-width-textarea");
 			});
 
-
 		new Setting(containerEl)
-			.setName('Language')
-			.setDesc('Select the language for linting rules')
+			.setName('Sprache')
+			.setDesc('Wähle die Sprache für die Prüfregeln')
 			.addDropdown(dropdown => {
-				dropdown.addOption('en', 'English');
-				dropdown.addOption('de', 'German');
+				dropdown.addOption('en', 'Englisch');
+				dropdown.addOption('de', 'Deutsch');
 				dropdown.setValue(this.plugin.settings.language || 'en');
 				dropdown.onChange(async (value) => {
 					this.plugin.settings.language = value as 'en' | 'de';
