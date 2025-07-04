@@ -26,6 +26,9 @@ jobs:
       - name: Zip plugin files
         run: zip plugin.zip main.js manifest.json styles.css
 
+      - name: Install GitHub CLI
+        run: sudo apt-get update && sudo apt-get install -y gh
+
       - name: Create release
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
