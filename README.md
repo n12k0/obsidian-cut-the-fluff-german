@@ -54,6 +54,6 @@ Es gibt eingebaute Regeln für Füllwörter, Weasel Words, Weak Qualifiers, Redu
 * Keine (nur CSS-Klasse für eigene Formatierung)
 
 Thanks to [Adam Fletcher](https://github.com/adamfletcher/obsidian-cut-the-fluff) for the inspiration and the code. This is simply a fork of the original plugin adapted for German.
-Thanks to [TimKam](https://github.com/TimKam) for the word lists.
+Thanks to [TimKam](https://github.com/TimKam) for some of the word lists.
 
 If you want to fully emulate the iA Writer experience while writing in German in Obsidian, check out my other fork: [nl-syntax-highlighting-german](https://github.com/n12k0/nl-syntax-highlighting-german). This plugin highlights German adjectives, nouns, adverbs, verbs, articles, and conjunctions in the editor.
