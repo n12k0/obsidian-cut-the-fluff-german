@@ -31,6 +31,12 @@ If you want to add or remove words, do the following:
 3. Then run `npm install` and `npm run build`.
 4. The generated `main.js` file will be in the plugin folder. Replace the `main.js` file in your Obsidian plugin folder with this new one.
 
+## Installation
+
+1. Download the latest release assets from the [Releases page](https://github.com/n12k0/obsidian-cut-the-fluff-german/releases).
+2. Unzip the downloaded folder.
+3. Move the unzipped folder into your vault's `.obsidian/plugins` directory.
+4. Restart Obsidian or enable the plugin from the Obsidian settings under "Community plugins".
 
 ## Datenschutz
 
