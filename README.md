@@ -18,7 +18,7 @@ Beispiele:
 **Deutsch:**  
 Um eigene Wörter hinzuzufügen oder bestehende zu entfernen, klone dieses Repository und passe die Datei `rulesets.de.ts` nach deinen Wünschen an.  
 Führe anschließend `npm install` und dann `npm run build` aus.  
-Die erzeugte Datei `main.js` findest du im Plugin-Ordner. Ersetze damit die `main.js`-Datei im Plugin-Ordner deiner Obsidian-Installation.
+Ersetze die `main.js`-Datei im Plugin-Ordner deiner Obsidian-Installation.
 
 **English:**  
 To add your own words or remove existing ones, clone this repository and edit the `rulesets.de.ts` file as you like.  
