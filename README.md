@@ -25,13 +25,18 @@ To add your own words or remove existing ones, clone this repository and edit th
 Then run `npm install` and `npm run build`.  
 The generated `main.js` file will be in the plugin folder. Replace the `main.js` file in your Obsidian plugin folder with this new one.
 
+## Installation
+
+1. Download the latest release assets from the [Releases page](https://github.com/n12k0/obsidian-cut-the-fluff-german/releases).
+2. Unzip the downloaded folder.
+3. Move the unzipped folder into your vault's `.obsidian/plugins` directory.
+4. Restart Obsidian or enable the plugin from the Obsidian settings under "Community plugins".
+
 ## Datenschutz
 
 Alle Verarbeitung erfolgt lokal auf deinem Gerät. Deine Texte oder andere Daten werden niemals an einen Server gesendet.
 
-## Anpassung
-
-### Regeln
+## Regeln
 
 Es gibt eingebaute Regeln für Füllwörter, Weasel Words, Weak Qualifiers, Redundanzen, Jargon und Komplexität. Du kannst eigene Wörter und Ausnahmen hinzufügen.
 
