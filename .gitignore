@@ -24,3 +24,6 @@ redundanzen.md
 
 # Exclude macOS Finder (System Explorer) View States
 .DS_Store
+
+# Exclude zip archives
+*.zip

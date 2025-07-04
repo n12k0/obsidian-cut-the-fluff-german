@@ -1,10 +1,10 @@
 {
-	"id": "cut-the-fluff",
+	"id": "cut-the-fluff-german",
 	"name": "Cut the Fluff German",
 	"version": "0.1.6",
 	"minAppVersion": "0.15.0",
 	"description": "Make your German writing clearer by checking for unnecessary complexity and clutter.",
 	"author": "n12k0 (forked from Adam Fletcher)",
-	"authorUrl": "https://adamfletcher.com",
+	"authorUrl": "https://github.com/n12k0",
 	"isDesktopOnly": false
 }
