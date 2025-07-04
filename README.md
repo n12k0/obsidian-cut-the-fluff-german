@@ -36,9 +36,7 @@ If you want to add or remove words, do the following:
 
 Alle Verarbeitung erfolgt lokal auf deinem Gerät. Deine Texte oder andere Daten werden niemals an einen Server gesendet.
 
-## Anpassung
-
-### Regeln
+## Regeln
 
 Es gibt eingebaute Regeln für Füllwörter, Weasel Words, Weak Qualifiers, Redundanzen, Jargon und Komplexität. Du kannst eigene Wörter und Ausnahmen hinzufügen.
 
